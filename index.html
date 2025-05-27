@@ -9,119 +9,69 @@
   <style>
     /* Global Styles */
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(120deg,
-                  #f6d365 0%,
-                  #fda085 25%,
-                  #fbc2eb 50%,
-                  #a6c1ee 75%,
-                  #84fab0 100%);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #333;
+      margin: 0; padding: 0; font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(120deg, #f6d365 0%, #fda085 25%, #fbc2eb 50%, #a6c1ee 75%, #84fab0 100%);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite; color: #333;
     }
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    @keyframes gradientBG { 
+      0% {background-position: 0% 50%;} 
+      50% {background-position: 100% 50%;} 
+      100% {background-position: 0% 50%;} 
     }
     .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 15px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      max-width: 900px; margin: auto; padding: 20px;
+      background: rgba(255,255,255,0.8); border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     }
     /* Button Styles */
     .lang-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
+      position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px;
     }
     .lang-toggle button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #ff7e5f;
-      color: white;
-      transition: background 0.3s;
+      padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+      background: #ff7e5f; color: white; transition: background 0.3s;
     }
-    .lang-toggle button:hover {
-      background: #eb6750;
-    }
+    .lang-toggle button:hover { background: #eb6750; }
+
     /* Header Styles */
-    header {
-      text-align: center;
-      padding: 50px 0;
-    }
+    header { text-align: center; padding: 50px 0; }
     .gradient-text {
-      font-size: 3em;
-      font-weight: 700;
+      font-size: 3em; font-weight: 700;
       background: linear-gradient(90deg, #ff7e5f, #feb47b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+      display: flex; justify-content: center; gap: 20px; margin-top: 20px;
     }
     nav a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #555;
-      padding: 10px 20px;
-      border: 2px solid #555;
-      border-radius: 25px;
+      text-decoration: none; font-weight: 600; color: #555;
+      padding: 10px 20px; border: 2px solid #555; border-radius: 25px;
       transition: all 0.3s;
     }
-    nav a:hover {
-      background: #ff7e5f;
-      color: #fff;
-      border-color: #ff7e5f;
-    }
+    nav a:hover { background: #ff7e5f; color: #fff; border-color: #ff7e5f; }
+
     /* Section Styles */
     section {
-      padding: 40px 20px;
-      border-bottom: 2px dashed #ccc;
+      padding: 40px 20px; border-bottom: 2px dashed #ccc;
     }
-    section:last-child {
-      border: none;
-    }
+    section:last-child { border: none; }
     h2 {
-      font-size: 2em;
-      color: #333;
-      margin-bottom: 10px;
-      position: relative;
+      font-size: 2em; color: #333; margin-bottom: 10px; position: relative;
     }
     h2::after {
-      content: "";
-      width: 50px;
-      height: 5px;
-      background: #ff7e5f;
-      display: block;
-      margin-top: 5px;
-      border-radius: 5px;
+      content: ""; width: 50px; height: 5px; background: #ff7e5f;
+      display: block; margin-top: 5px; border-radius: 5px;
     }
     p {
-      line-height: 1.6;
-      font-size: 1.1em;
-      color: #555;
+      line-height: 1.6; font-size: 1.1em; color: #555;
     }
+    a.custom-link {
+      color: #ff7e5f; font-weight: 600; text-decoration: none;
+    }
+    a.custom-link:hover { text-decoration: underline; }
+
     /* Footer Styles */
     footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
+      text-align: center; padding: 20px; font-size: 0.9em; color: #777;
     }
   </style>
 </head>
@@ -130,17 +80,17 @@
     <!-- Header -->
     <header>
       <h1 class="gradient-text">
-        <span class="lang-en">🚀 Ahmad Navid Ahmadi's Space! 🚀</span>
-        <span class="lang-fa" style="display:none;">🚀 فضای احمد نوید احمدی! 🚀</span>
+        <span class="lang-en">✨ Welcome to Ahmad Navid Ahmadi's Space! ✨</span>
+        <span class="lang-fa" style="display:none;">✨ خوش آمدید به فضای احمد نوید احمدی! ✨</span>
       </h1>
       <nav>
         <a href="#about">
-          <span class="lang-en">About 😊</span>
-          <span class="lang-fa" style="display:none;">درباره 😊</span>
+          <span class="lang-en">Curious About Me? 😊</span>
+          <span class="lang-fa" style="display:none;">مایل به دانستن در مورد من هستید؟ 😊</span>
         </a>
         <a href="#contact">
-          <span class="lang-en">Contact 📬</span>
-          <span class="lang-fa" style="display:none;">تماس 📬</span>
+          <span class="lang-en">Let's Connect! 📬</span>
+          <span class="lang-fa" style="display:none;">بیا ارتباط برقرار کنیم! 📬</span>
         </a>
       </nav>
     </header>
@@ -148,46 +98,49 @@
     <!-- About Section -->
     <section id="about">
       <h2>
-        <span class="lang-en">About Me 🧑‍💻</span>
-        <span class="lang-fa" style="display:none;">درباره من 🧑‍💻</span>
+        <span class="lang-en">Who Am I? 🧑‍💻</span>
+        <span class="lang-fa" style="display:none;">من که هستم؟ 🧑‍💻</span>
       </h2>
       <p>
-        <span class="lang-en">Hello! I'm <strong>Ahmad Navid Ahmadi</strong>. I'm a Grade 10 student passionately learning coding and building awesome websites. I studied English at the <strong>Muslim English Language Institute</strong>. I enjoy science, math, and technology projects. I ❤️ design, emojis, and creative web development!</span>
-        <span class="lang-fa" style="display:none;">سلام! من <strong>احمد نوید احمدی</strong> هستم. من دانش‌آموز کلاس دهم هستم که با شور و اشتیاق برنامه‌نویسی و ساخت وب‌سایت‌های عالی را یاد می‌گیرم. من انگلیسی را در <strong>موسسه زبان انگلیسی مسلمان</strong> مطالعه کردم. من از پروژه‌های علوم، ریاضی و فناوری لذت می‌برم. من ❤️ طراحی، ایموجی و توسعه خلاق وب را دوست دارم!</span>
+        <span class="lang-en">Hello there! I'm <strong>Ahmad Navid Ahmadi</strong>, a Grade 10 student who loves exploring code and crafting delightful websites. I studied English at the <strong>Muslim English Language Institute</strong>, and I'm always eager to dive into science, math, and tech adventures. 😊</span>
+        <span class="lang-fa" style="display:none;">سلام! من <strong>احمد نوید احمدی</strong> هستم، دانش‌آموز صنف دهم که عاشق کاوش در دنیای کد و ساخت وب‌سایت‌های جذاب هستم. I studied English at the <strong>Muslim English Language Institute</strong>، and I'm always eager to dive into science, math, and tech adventures. 😊</span>
       </p>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
       <h2 id="whatsappToggle" style="cursor:pointer; color:#ff7e5f;">
-        <span class="lang-en">Contact on WhatsApp 📱</span>
-        <span class="lang-fa" style="display:none;">تماس در واتساپ 📱</span>
+        <span class="lang-en">Fancy a WhatsApp Chat? 📱</span>
+        <span class="lang-fa" style="display:none;">دوست دارید در واتساپ گپ بزنیم؟ 📱</span>
       </h2>
-      <p id="whatsappNumber" style="display:none;">+1 309-314-9885</p>
+      <p id="whatsappLink" style="display:none;">
+        <a href="https://wa.me/13093149885" target="_blank" class="custom-link">
+          <span class="lang-en">Click here to start a WhatsApp conversation!</span>
+          <span class="lang-fa" style="display:none;">برای شروع گفتگو در واتساپ اینجا کلیک کنید!</span>
+        </a>
+      </p>
 
       <h2 id="telegramToggle" style="cursor:pointer; color:#3498db;">
-        <span class="lang-en">Contact on Telegram ✈️</span>
-        <span class="lang-fa" style="display:none;">تماس در تلگرام ✈️</span>
+        <span class="lang-en">Ready for Telegram? ✈️</span>
+        <span class="lang-fa" style="display:none;">آماده تلگرام هستید؟ ✈️</span>
       </h2>
-      <p id="telegramUsername" style="display:none;">
-        <img src="https://raw.githubusercontent.com/AhmadNavid1st/ahmadnavid1st.github.io/main/logo.jpg" alt="My Logo" style="width:24px; vertical-align:middle; margin-right:5px; border-radius:50%;">
-        <a href="https://t.me/AhmadNavidAhmadi" target="_blank">
-          <span class="lang-en">@AhmadNavidAhmadi</span>
-          <span class="lang-fa" style="display:none;">@AhmadNavidAhmadi</span>
+      <p id="telegramLink" style="display:none;">
+        <a href="https://t.me/AhmadNavidAhmadi" target="_blank" class="custom-link">
+          <span class="lang-en">Tap here to chat with me on Telegram!</span>
+          <span class="lang-fa" style="display:none;">برای گفتگو در تلگرام اینجا بزنید!</span>
         </a>
       </p>
 
       <p>
-        <span class="lang-en">📧 Email: <a href="mailto:Mytimettt@gmail.com">Mytimettt@gmail.com</a></span>
-        <span class="lang-fa" style="display:none;">📧 ایمیل: <a href="mailto:Mytimettt@gmail.com">Mytimettt@gmail.com</a></span>
+        <span class="lang-en">Feel free to drop me an email anytime: <a href="mailto:Mytimettt@gmail.com" class="custom-link">Mytimettt@gmail.com</a></span>
+        <span class="lang-fa" style="display:none;">هر زمان مایل بودید برایم ایمیل ارسال کنید: <a href="mailto:Mytimettt@gmail.com" class="custom-link">Mytimettt@gmail.com</a></span>
       </p>
     </section>
 
     <!-- Footer -->
     <footer>
-      <span class="lang-en">&copy; 2025 Ahmad Navid Ahmadi | Built by A.N.A </span>
-      <span class="lang-fa" style="display:none;">&copy; 2025 احمد نوید احمدی | ساخته  توسط احمد نوید !</span>
-    </footer>
+      <span class="lang-en">&copy; 2025 Ahmad Navid Ahmadi | Built by A.N.A 🌹</span>
+      <span class="lang-fa" style="display:none;">&copy; 2025  احمد نوید احمدی | ساخته شده توسط احمد نوید احمدی
   </div>
 
   <!-- Language Toggle Buttons -->
@@ -197,13 +150,13 @@
   </div>
 
   <script>
-    // Contact toggles
+    // Toggle contact links
     document.getElementById('whatsappToggle').addEventListener('click', function() {
-      var w = document.getElementById('whatsappNumber');
+      var w = document.getElementById('whatsappLink');
       w.style.display = (w.style.display === 'none') ? 'block' : 'none';
     });
     document.getElementById('telegramToggle').addEventListener('click', function() {
-      var t = document.getElementById('telegramUsername');
+      var t = document.getElementById('telegramLink');
       t.style.display = (t.style.display === 'none') ? 'block' : 'none';
     });
 
