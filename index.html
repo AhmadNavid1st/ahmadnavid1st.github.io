@@ -3,135 +3,163 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tap & Earn! 🪙</title>
+  <title>Tap & Earn Ultimate Edition 🏆🪙</title>
   <style>
-    /* Global */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: linear-gradient(135deg, #e0f7fa, #fffde7);
       font-family: 'Segoe UI', sans-serif;
-      color: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg); color: var(--text);
+      transition: background .3s, color .3s;
     }
-    /* Container */
+    :root { --bg: #f0f8ff; --text: #222; --accent: #4db6ac; --btn-bg: #ffd54f; --btn-border: #ffca28; }
+    .dark { --bg: #121212; --text: #eee; --accent: #81d4fa; --btn-bg: #ffb300; --btn-border: #ffa000; }
     .container {
-      width: 100%;
-      max-width: 400px;
-      background: #ffffffcc;
-      border: 4px dashed #4db6ac;
-      border-radius: 20px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      padding: 30px;
-      text-align: center;
+      width: 100%; max-width: 440px;
+      background: rgba(255,255,255,.9);
+      border: 4px dashed var(--accent);
+      border-radius: 20px; box-shadow: 0 8px 16px rgba(0,0,0,.2);
+      padding: 30px; text-align: center;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    /* Status */
-    .status {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-    }
-    /* Big Coin Button */
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    .status { display: flex; justify-content: space-around; margin-bottom: 20px; font-size: 1.2rem; }
     #tap-btn {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      line-height: 200px;
-      font-size: 4rem;
-      background: radial-gradient(circle at 30% 30%, #ffd54f, #ffb300);
-      border: 6px solid #ffca28;
-      border-radius: 50%;
-      cursor: pointer;
-      touch-action: none; /* enable multi-touch */
-      user-select: none;
-      margin: 0 auto;
-      transition: transform 0.1s;
+      width: 200px; height: 200px; line-height: 200px;
+      font-size: 4rem; margin: 0 auto 20px;
+      background: radial-gradient(circle at 30%30%, var(--btn-bg), #e6a700);
+      border: 6px solid var(--btn-border); border-radius: 50%; cursor: pointer;
+      touch-action: none; user-select: none; animation: pulse 2s infinite;
     }
-    #tap-btn:active {
-      transform: scale(0.95);
-    }
-    /* Upgrade Button */
-    #upgrade-btn {
-      margin-top: 25px;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border: 3px solid #0288d1;
-      border-radius: 12px;
-      background: #81d4fa;
-      cursor: pointer;
-      display: none;
-    }
-    #upgrade-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    /* Responsive */
-    @media (max-width: 480px) {
-      #tap-btn { width: 160px; height: 160px; line-height: 160px; font-size: 3.2rem; }
-      .container { padding: 20px; }
-      .status { font-size: 1rem; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    #tap-btn:active { transform: scale(0.95); }
+    .shop { margin-top: 10px; text-align: left; }
+    .shop h2 { margin-bottom: 10px; font-size: 1.4rem; }
+    .item { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .item button { padding: 6px 12px; font-size: .9rem; border: 2px solid var(--accent);
+      border-radius: 8px; background: transparent; cursor: pointer; }
+    .item button:disabled { opacity: .5; cursor: not-allowed; }
+    #theme-toggle { margin-top: 15px; font-size: .9rem; background: var(--accent);
+      color: #fff; padding: 6px 12px; border:none; border-radius:8px; cursor:pointer; }
+    @media (max-width:480px) {
+      #tap-btn { width:160px; height:160px; line-height:160px; font-size:3rem; }
+      .container { padding:20px; }
+      .status { flex-direction: column; gap:8px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Tap & Earn! 🪙</h1>
+    <h1>Tap & Earn Ultimate Edition 🏆🪙</h1>
     <div class="status">
       <div>Balance: <strong id="bal">0</strong> 🪙</div>
       <div>Speed ×<strong id="mul">1</strong></div>
+      <div>CPS: <strong id="cps">0</strong></div>
     </div>
     <div id="tap-btn">👆</div>
-    <button id="upgrade-btn">Upgrade ×2 (cost: <span id="cost">100</span> 🪙)</button>
+
+    <div class="shop">
+      <h2>🛒 Shop</h2>
+      <div class="item"><span>×2 Speed</span><button id="buy-speed">Cost: <span id="cost-speed">100</span></button></div>
+      <div class="item"><span>+1 Auto-Tap/sec</span><button id="buy-auto">Cost: <span id="cost-auto">500</span></button></div>
+      <div class="item"><span>💥 Critical Tap (10% double)</span><button id="buy-crit">Cost: <span id="cost-crit">300</span></button></div>
+      <div class="item"><span>🔄 Combo Multiplier (×3 for 10 taps)</span><button id="buy-combo">Cost: <span id="cost-combo">750</span></button></div>
+      <div class="item"><span>🐾 Coin Pet (+0.5/sec)</span><button id="buy-pet">Cost: <span id="cost-pet">1000</span></button></div>
+      <div class="item"><span>☕️ Coffee Boost (×1.5 for 60s)</span><button id="buy-coffee">Cost: <span id="cost-coffee">1200</span></button></div>
+      <div class="item"><span>🎉 Daily Reward Unlock</span><button id="buy-daily">Cost: <span id="cost-daily">1500</span></button></div>
+      <div class="item"><span>🌈 Skin Pack</span><button id="buy-skin">Cost: <span id="cost-skin">2000</span></button></div>
+      <div class="item"><span>📈 Offline Multiplier (×2)</span><button id="buy-offline">Cost: <span id="cost-offline">2500</span></button></div>
+      <div class="item"><span>🏛 Prestige Reset</span><button id="buy-prestige">Cost: <span id="cost-prestige">5000</span></button></div>
+      <div class="item"><span>🌟 Lucky Spin</span><button id="buy-spin">Cost: <span id="cost-spin">800</span></button></div>
+    </div>
+
+    <button id="theme-toggle">Toggle Dark Mode 🌗</button>
   </div>
 
+  <audio id="click-sfx" src="https://freesound.org/data/previews/256/256113_3263906-lq.mp3"></audio>
+
   <script>
-    let balance = 0;
-    let speed = 1;
-    let nextCost = 100;
+    // State
+    const state = { bal: 0, mul: 1, cps: 0 };
+    const costs = {
+      speed:100, auto:500, crit:300, combo:750, pet:1000,
+      coffee:1200, daily:1500, skin:2000, offline:2500,
+      prestige:5000, spin:800
+    };
+    const bought = { crit:0, combo:0 };
+    const els = {};
 
-    const balEl   = document.getElementById('bal');
-    const mulEl   = document.getElementById('mul');
-    const costEl  = document.getElementById('cost');
-    const tapBtn  = document.getElementById('tap-btn');
-    const upgBtn  = document.getElementById('upgrade-btn');
+    // Init elements
+    ['bal','mul','cps'].forEach(id => els[id] = document.getElementById(id));
+    Object.keys(costs).forEach(key => els['cost-'+key] = document.getElementById('cost-'+key));
 
-    function refreshUI() {
-      balEl.textContent = balance;
-      mulEl.textContent = speed;
-      costEl.textContent = nextCost;
-      upgBtn.style.display = (balance >= nextCost) ? 'inline-block' : 'none';
-      upgBtn.disabled = balance < nextCost;
+    function refresh() {
+      els.bal.textContent = state.bal;
+      els.mul.textContent = state.mul;
+      els.cps.textContent = state.cps;
+      Object.keys(costs).forEach(key => {
+        document.getElementById('buy-'+key).disabled = state.bal < costs[key];
+      });
     }
 
-    // Multi-touch handler: pointerdown counts each finger
-    tapBtn.addEventListener('pointerdown', (e) => {
-      balance += speed;
-      // quick sparkle feedback
-      tapBtn.textContent = '✨';
-      setTimeout(() => tapBtn.textContent = '👆', 80);
-      refreshUI();
-    });
-
-    upgBtn.addEventListener('click', () => {
-      if (balance >= nextCost) {
-        balance -= nextCost;
-        speed *= 2;
-        nextCost *= 2;
-        alert(`🚀 Upgraded! Now you earn ×${speed} per tap!`);
-        refreshUI();
+    // Purchase helper
+    function buy(key, effect) {
+      if (state.bal >= costs[key]) {
+        state.bal -= costs[key];
+        effect();
+        costs[key] *= 2;
+        els['cost-'+key].textContent = costs[key];
+        refresh();
+        alert(`👍 ${key.replace('-', ' ')} purchased!`);
       }
+    }
+
+    document.getElementById('buy-speed').onclick   = () => buy('speed', () => state.mul *= 2);
+    document.getElementById('buy-auto').onclick    = () => buy('auto',  () => state.cps += 1);
+    document.getElementById('buy-crit').onclick    = () => buy('crit',  () => bought.crit++);
+    document.getElementById('buy-combo').onclick   = () => buy('combo', () => bought.combo = 10);
+    document.getElementById('buy-pet').onclick     = () => buy('pet',   () => state.cps += 0.5);
+    document.getElementById('buy-coffee').onclick  = () => buy('coffee',() => {
+      state.mul *= 1.5;
+      setTimeout(() => state.mul /= 1.5, 60000);
+    });
+    document.getElementById('buy-daily').onclick   = () => buy('daily', () => alert('⏰ Come back tomorrow for reward!'));
+    document.getElementById('buy-skin').onclick    = () => buy('skin',  () => alert('🌈 New skins unlocked!'));
+    document.getElementById('buy-offline').onclick = () => buy('offline', () => state.cps *= 2);
+    document.getElementById('buy-prestige').onclick= () => buy('prestige', () => {
+      state.bal = 0; state.mul = 1; state.cps = 0;
+    });
+    document.getElementById('buy-spin').onclick    = () => buy('spin',   () => {
+      const bonus = Math.floor(Math.random() * 500);
+      state.bal += bonus;
+      alert(`🎁 You won ${bonus} coins!`);
     });
 
-    // init
-    refreshUI();
+    // Tap handler
+    const btnTap = document.getElementById('tap-btn');
+    const sfx    = document.getElementById('click-sfx');
+    btnTap.addEventListener('pointerdown', () => {
+      let gain = state.mul;
+      if (Math.random() < 0.1 * bought.crit) gain *= 2;
+      if (bought.combo > 0) { gain *= 3; bought.combo--; }
+      state.bal += gain;
+      sfx.currentTime = 0; sfx.play();
+      refresh();
+    });
+
+    // Auto-Tap every second
+    setInterval(() => {
+      if (state.cps > 0) {
+        state.bal += state.cps;
+        refresh();
+      }
+    }, 1000);
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.onclick = () => document.body.classList.toggle('dark');
+
+    // Initialize UI
+    refresh();
   </script>
 </body>
 </html>
