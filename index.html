@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tap-to-Earn Game 🪙</title>
+  <title>Tap & Earn! 🪙</title>
   <style>
+    /* Global */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #f0f8ff;
+      background: linear-gradient(135deg, #e0f7fa, #fffde7);
       font-family: 'Segoe UI', sans-serif;
+      color: #222;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: start;
+      justify-content: center;
       min-height: 100vh;
       padding: 20px;
-      color: #333;
     }
+    /* Container */
     .container {
-      border: 4px dashed #8ac6d1;
-      border-radius: 20px;
-      padding: 30px;
-      background: #fff;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
       width: 100%;
+      max-width: 400px;
+      background: #ffffffcc;
+      border: 4px dashed #4db6ac;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      padding: 30px;
+      text-align: center;
     }
     h1 {
-      margin-bottom: 10px;
       font-size: 2rem;
+      margin-bottom: 10px;
     }
-    #balance {
-      font-size: 1.5rem;
-      margin: 15px 0;
+    /* Status */
+    .status {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
     }
+    /* Big Coin Button */
     #tap-btn {
-      font-size: 3rem;
-      border: 6px solid #ffb703;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      line-height: 200px;
+      font-size: 4rem;
+      background: radial-gradient(circle at 30% 30%, #ffd54f, #ffb300);
+      border: 6px solid #ffca28;
       border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      line-height: 140px;
-      background: #ffd60a;
       cursor: pointer;
-      transition: transform 0.1s;
+      touch-action: none; /* enable multi-touch */
       user-select: none;
+      margin: 0 auto;
+      transition: transform 0.1s;
     }
     #tap-btn:active {
       transform: scale(0.95);
     }
+    /* Upgrade Button */
     #upgrade-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      border: 3px solid #219ebc;
-      border-radius: 10px;
-      background: #8ecae6;
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: 3px solid #0288d1;
+      border-radius: 12px;
+      background: #81d4fa;
       cursor: pointer;
       display: none;
     }
@@ -63,64 +73,64 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
-    .footer {
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: #666;
+    /* Responsive */
+    @media (max-width: 480px) {
+      #tap-btn { width: 160px; height: 160px; line-height: 160px; font-size: 3.2rem; }
+      .container { padding: 20px; }
+      .status { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Tap & Earn! 🪙</h1>
-    <div id="balance">Balance: <strong>0</strong> 🪙</div>
-    <div id="multiplier">Speed ×<strong>1</strong></div>
+    <div class="status">
+      <div>Balance: <strong id="bal">0</strong> 🪙</div>
+      <div>Speed ×<strong id="mul">1</strong></div>
+    </div>
     <div id="tap-btn">👆</div>
-    <button id="upgrade-btn">Upgrade ×2 Speed (cost: 1,000 🪙)</button>
-    <div class="footer">Code by Ahmad Navid Ahmadi 💻</div>
+    <button id="upgrade-btn">Upgrade ×2 (cost: <span id="cost">100</span> 🪙)</button>
   </div>
 
   <script>
-    // Game state
     let balance = 0;
-    let speedMultiplier = 1;
-    const cost = 1000;
+    let speed = 1;
+    let nextCost = 100;
 
-    // DOM elements
-    const balanceEl = document.querySelector('#balance strong');
-    const multiEl   = document.querySelector('#multiplier strong');
-    const tapBtn    = document.getElementById('tap-btn');
-    const upgBtn    = document.getElementById('upgrade-btn');
+    const balEl   = document.getElementById('bal');
+    const mulEl   = document.getElementById('mul');
+    const costEl  = document.getElementById('cost');
+    const tapBtn  = document.getElementById('tap-btn');
+    const upgBtn  = document.getElementById('upgrade-btn');
 
-    // Update UI
     function refreshUI() {
-      balanceEl.textContent = balance;
-      multiEl.textContent = speedMultiplier;
-      // Show upgrade button when enough coins
-      upgBtn.style.display = (balance >= cost && speedMultiplier === 1) ? 'inline-block' : 'none';
-      upgBtn.disabled = balance < cost;
+      balEl.textContent = balance;
+      mulEl.textContent = speed;
+      costEl.textContent = nextCost;
+      upgBtn.style.display = (balance >= nextCost) ? 'inline-block' : 'none';
+      upgBtn.disabled = balance < nextCost;
     }
 
-    // Tap handler
-    tapBtn.addEventListener('click', () => {
-      balance += speedMultiplier;
-      // Add a quick sparkle effect
-      tapBtn.innerText = '✨';
-      setTimeout(() => tapBtn.innerText = '👆', 100);
+    // Multi-touch handler: pointerdown counts each finger
+    tapBtn.addEventListener('pointerdown', (e) => {
+      balance += speed;
+      // quick sparkle feedback
+      tapBtn.textContent = '✨';
+      setTimeout(() => tapBtn.textContent = '👆', 80);
       refreshUI();
     });
 
-    // Upgrade handler
     upgBtn.addEventListener('click', () => {
-      if (balance >= cost) {
-        balance -= cost;
-        speedMultiplier = 2;
-        alert('🚀 Speed upgraded! You now earn ×2 per tap! 🎉');
+      if (balance >= nextCost) {
+        balance -= nextCost;
+        speed *= 2;
+        nextCost *= 2;
+        alert(`🚀 Upgraded! Now you earn ×${speed} per tap!`);
         refreshUI();
       }
     });
 
-    // Init
+    // init
     refreshUI();
   </script>
 </body>
