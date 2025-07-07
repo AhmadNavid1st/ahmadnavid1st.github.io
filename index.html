@@ -1,3 +1,5 @@
+<!-- فایل کامل Tap & Earn Ultimate Edition -->
+<!-- کافیست این فایل را در یک فایل HTML ذخیره کنی و در مرورگر باز کنی -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,253 +8,231 @@
   <title>Tap & Earn Ultimate Edition 🏆🪙</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: 'Segoe UI', sans-serif; }
-
+    html, body { height: 100%; }
     body {
+      font-family: 'Segoe UI', sans-serif;
       display: flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-      color: #333; transition: all 0.3s;
+      color: #333;
+      transition: background .3s, color .3s;
     }
-
+    :root {
+      --bg: #ffffffdd;
+      --card-bg: #ffffff;
+      --text: #333;
+      --accent: #ff6f61;
+      --btn-bg: #ffd54f;
+      --btn-border: #e58900;
+      --secondary: #6c5b7b;
+    }
     .dark {
-      background: linear-gradient(135deg, #2c2c2c, #1e1e1e);
-      color: #eee;
+      --bg: #2c2c2c;
+      --card-bg: #1e1e1e;
+      --text: #eee;
+      --accent: #ff9f1c;
+      --btn-bg: #ff6f61;
+      --btn-border: #ff3b30;
+      --secondary: #355c7d;
     }
-
+    body { background: var(--bg); }
     .container {
       width: 100%; max-width: 480px;
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--card-bg);
       border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       padding: 25px;
       text-align: center;
     }
-
-    .dark .container {
-      background: rgba(30, 30, 30, 0.95);
-    }
-
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 15px;
-      color: #ff6f61;
+      color: var(--accent);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
-
     .status {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
       margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: var(--secondary);
     }
-
-    .status div {
-      margin: 5px 0;
-      font-size: 1rem;
-    }
-
+    .status div { margin: 5px 0; }
     #tap-btn {
       width: 260px;
       height: 260px;
+      line-height: 260px;
       font-size: 5rem;
-      background: radial-gradient(circle, #FFD93D, #E8B321);
+      margin: 0 auto 20px;
+      background: radial-gradient(circle at 30% 30%, #FFD93D, #E8B321);
       border: 8px solid #E8B321;
       border-radius: 50%;
       cursor: pointer;
-      margin-bottom: 20px;
-      line-height: 260px;
+      touch-action: none;
       user-select: none;
-      transition: all 0.1s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform .1s, box-shadow .3s;
     }
-
     #tap-btn:active {
       transform: scale(0.9);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     }
-
-    .shop, .tasks {
+    .shop {
+      margin-top: 15px;
       text-align: left;
-      margin-bottom: 20px;
     }
-
-    .shop h2, .tasks h2 {
-      font-size: 1.3rem;
-      color: #ff6f61;
+    .shop h2 {
+      font-size: 1.5rem;
       margin-bottom: 10px;
+      color: var(--accent);
     }
-
-    .item, .task {
+    .item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
     }
-
-    button {
+    .item span {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .item button {
       padding: 8px 14px;
       font-size: 0.9rem;
-      border: none;
-      border-radius: 8px;
-      background: #ffd54f;
-      color: #000;
+      border: 2px solid var(--accent);
+      border-radius: 10px;
+      background: var(--btn-bg);
+      color: #fff;
       cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background .2s;
     }
-
-    button:disabled {
-      background: #ccc;
+    .item button:disabled {
+      opacity: 0.5;
       cursor: not-allowed;
     }
-
+    .tasks {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .tasks h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .task {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .task button {
+      padding: 5px 10px;
+      border: 1px solid var(--secondary);
+      border-radius: 6px;
+      background: transparent;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
     #theme-toggle, #share-btn {
-      margin-top: 10px;
-      margin-right: 5px;
-      background: #ff6f61;
+      margin-top: 15px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
       color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background .2s;
+      margin-right: 10px;
+    }
+    #share-btn { background: var(--secondary); }
+    @media (max-width: 500px) {
+      #tap-btn { width: 220px; height: 220px; line-height: 220px; font-size: 4.5rem; }
+      .container { padding: 20px; }
+      .status { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Tap & Earn Ultimate Edition 🏆🪙</h1>
-
     <div class="status">
       <div>Balance: <strong id="bal">0</strong> 🪙</div>
-      <div>Speed: ×<strong id="mul">1</strong></div>
+      <div>Speed ×<strong id="mul">1</strong></div>
       <div>CPS: <strong id="cps">0</strong></div>
       <div>Level: <strong id="level">1</strong></div>
       <div>XP: <strong id="xp">0</strong>/<strong id="xpNext">100</strong></div>
     </div>
-
     <div id="tap-btn">👆</div>
 
     <div class="shop">
-      <h2>🛒 Shop</h2>
+      <h2>🛒 Shop & Features</h2>
       <div class="item"><span>×2 Speed</span><button id="buy-speed">Cost: <span id="cost-speed">100</span></button></div>
-      <div class="item"><span>+1 Auto Tap/sec</span><button id="buy-auto">Cost: <span id="cost-auto">500</span></button></div>
+      <div class="item"><span>+1 Auto-Tap/sec</span><button id="buy-auto">Cost: <span id="cost-auto">500</span></button></div>
     </div>
 
     <div class="tasks">
       <h2>📋 Daily Tasks</h2>
       <div class="task"><span>Tap 100 times</span><button id="task-tap">Claim 50 🪙</button></div>
       <div class="task"><span>Earn 500 coins</span><button id="task-earn">Claim 100 🪙</button></div>
-      <div class="task"><span>Share the game</span><button id="task-share">Claim 75 🪙</button></div>
+      <div class="task"><span>Share game</span><button id="task-share">Claim 75 🪙</button></div>
     </div>
 
-    <button id="theme-toggle">🌗 Dark Mode</button>
-    <button id="share-btn">📤 Share Game</button>
+    <button id="theme-toggle">Toggle Dark Mode 🌗</button>
+    <button id="share-btn">Share Game 🎮</button>
   </div>
 
   <audio id="click-sfx" src="https://freesound.org/data/previews/256/256113_3263906-lq.mp3"></audio>
 
   <script>
-    const state = {
-      bal: 0, mul: 1, cps: 0,
-      level: 1, xp: 0, xpNext: 100,
-      taps: 0, earned: 0,
-    };
-    const done = { tap: false, earn: false, share: false };
-    const cost = { speed: 100, auto: 500 };
-
+    const state = { bal:0, mul:1, cps:0, level:1, xp:0, xpNext:100, taps:0, earned:0, shared:false };
+    const done = { tap:false, earn:false, share:false };
+    const els = {};
+    ['bal','mul','cps','level','xp','xpNext'].forEach(id=>els[id]=document.getElementById(id));
     function refresh() {
-      document.getElementById('bal').textContent = state.bal;
-      document.getElementById('mul').textContent = state.mul;
-      document.getElementById('cps').textContent = state.cps;
-      document.getElementById('level').textContent = state.level;
-      document.getElementById('xp').textContent = state.xp;
-      document.getElementById('xpNext').textContent = state.xpNext;
-
+      els.bal.textContent = state.bal;
+      els.mul.textContent = state.mul;
+      els.cps.textContent = state.cps;
+      els.level.textContent = state.level;
+      els.xp.textContent = state.xp;
+      els.xpNext.textContent = state.xpNext;
       document.getElementById('task-tap').disabled = done.tap || state.taps < 100;
       document.getElementById('task-earn').disabled = done.earn || state.earned < 500;
       document.getElementById('task-share').disabled = done.share;
     }
-
-    document.getElementById('tap-btn').addEventListener('pointerdown', () => {
-      const gain = state.mul;
-      state.bal += gain;
-      state.earned += gain;
+    document.getElementById('tap-btn').addEventListener('pointerdown',()=>{
+      state.bal += state.mul;
       state.taps++;
+      state.earned += state.mul;
       state.xp += 5;
-
-      if (state.xp >= state.xpNext) {
+      if(state.xp >= state.xpNext) {
         state.xp -= state.xpNext;
         state.level++;
         state.xpNext = Math.floor(state.xpNext * 1.5);
-        alert(`🎉 Leveled up to ${state.level}`);
+        alert(`🎉 Leveled up to ${state.level}!`);
       }
-
-      const sound = document.getElementById('click-sfx');
-      sound.currentTime = 0;
-      sound.play();
-
+      document.getElementById('click-sfx').play();
       refresh();
     });
-
-    document.getElementById('buy-speed').onclick = () => {
-      if (state.bal >= cost.speed) {
-        state.bal -= cost.speed;
-        state.mul *= 2;
-        cost.speed *= 2;
-        document.getElementById('cost-speed').textContent = cost.speed;
-        refresh();
-      }
+    document.getElementById('task-tap').onclick = ()=>{
+      if(state.taps >=100 && !done.tap) { state.bal += 50; done.tap=true; alert('🏆 Task complete! +50 🪙'); refresh(); }
     };
-
-    document.getElementById('buy-auto').onclick = () => {
-      if (state.bal >= cost.auto) {
-        state.bal -= cost.auto;
-        state.cps++;
-        cost.auto *= 2;
-        document.getElementById('cost-auto').textContent = cost.auto;
-        refresh();
-      }
+    document.getElementById('task-earn').onclick = ()=>{
+      if(state.earned >=500 && !done.earn) { state.bal += 100; done.earn=true; alert('🏆 Task complete! +100 🪙'); refresh(); }
     };
-
-    setInterval(() => {
-      if (state.cps > 0) {
-        state.bal += state.cps;
-        state.earned += state.cps;
-        refresh();
-      }
-    }, 1000);
-
-    document.getElementById('task-tap').onclick = () => {
-      if (!done.tap && state.taps >= 100) {
-        state.bal += 50;
-        done.tap = true;
-        alert('🎁 Task Completed: +50 coins!');
-        refresh();
-      }
-    };
-
-    document.getElementById('task-earn').onclick = () => {
-      if (!done.earn && state.earned >= 500) {
-        state.bal += 100;
-        done.earn = true;
-        alert('🎁 Task Completed: +100 coins!');
-        refresh();
-      }
-    };
-
-    document.getElementById('task-share').onclick = () => {
+    document.getElementById('task-share').onclick = ()=>{
       done.share = true;
       state.bal += 75;
-      alert('🎁 Thank you for sharing! +75 coins');
+      alert('🏆 Thanks for sharing! +75 🪙');
       refresh();
     };
-
-    document.getElementById('theme-toggle').onclick = () => {
-      document.body.classList.toggle('dark');
+    document.getElementById('share-btn').onclick = ()=>{
+      if(navigator.share) {
+        navigator.share({ title:'Tap & Earn', text:'Join me in this clicker game!', url:location.href });
+      } else alert('🔗 Copy link: '+location.href);
     };
-
-    document.getElementById('share-btn').onclick = () => {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Tap & Earn',
-          text: 'Join me in this fun tap game!',
-          url: window.location.href
-        });
-      } else {
-        alert('📋 Copy this link:\n' + window.location.href);
-      }
-    };
-
+    document.getElementById('theme-toggle').onclick = ()=> document.body.classList.toggle('dark');
     refresh();
   </script>
 </body>
