@@ -1,156 +1,49 @@
-<!-- فایل کامل Tap & Earn Ultimate Edition -->
-<!-- کافیست این فایل را در یک فایل HTML ذخیره کنی و در مرورگر باز کنی -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tap & Earn Ultimate Edition 🏆🪙</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
     body {
       font-family: 'Segoe UI', sans-serif;
       display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-      color: #333;
+      background: var(--bg); color: var(--text);
       transition: background .3s, color .3s;
     }
-    :root {
-      --bg: #ffffffdd;
-      --card-bg: #ffffff;
-      --text: #333;
-      --accent: #ff6f61;
-      --btn-bg: #ffd54f;
-      --btn-border: #e58900;
-      --secondary: #6c5b7b;
-    }
-    .dark {
-      --bg: #2c2c2c;
-      --card-bg: #1e1e1e;
-      --text: #eee;
-      --accent: #ff9f1c;
-      --btn-bg: #ff6f61;
-      --btn-border: #ff3b30;
-      --secondary: #355c7d;
-    }
-    body { background: var(--bg); }
+    :root { --bg: #f0f8ff; --text: #222; --accent: #4db6ac; --btn-bg: #ffd54f; --btn-border: #ffca28; }
+    .dark { --bg: #121212; --text: #eee; --accent: #81d4fa; --btn-bg: #ffb300; --btn-border: #ffa000; }
     .container {
-      width: 100%; max-width: 480px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      padding: 25px;
-      text-align: center;
+      width: 100%; max-width: 440px;
+      background: rgba(255,255,255,.9);
+      border: 4px dashed var(--accent);
+      border-radius: 20px; box-shadow: 0 8px 16px rgba(0,0,0,.2);
+      padding: 30px; text-align: center;
     }
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-      color: var(--accent);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
-    .status {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      color: var(--secondary);
-    }
-    .status div { margin: 5px 0; }
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    .status { display: flex; justify-content: space-around; margin-bottom: 20px; font-size: 1.2rem; }
     #tap-btn {
-      width: 260px;
-      height: 260px;
-      line-height: 260px;
-      font-size: 5rem;
-      margin: 0 auto 20px;
-      background: radial-gradient(circle at 30% 30%, #FFD93D, #E8B321);
-      border: 8px solid #E8B321;
-      border-radius: 50%;
-      cursor: pointer;
-      touch-action: none;
-      user-select: none;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      transition: transform .1s, box-shadow .3s;
+      width: 200px; height: 200px; line-height: 200px;
+      font-size: 4rem; margin: 0 auto 20px;
+      background: radial-gradient(circle at 30%30%, var(--btn-bg), #e6a700);
+      border: 6px solid var(--btn-border); border-radius: 50%; cursor: pointer;
+      touch-action: none; user-select: none; animation: pulse 2s infinite;
     }
-    #tap-btn:active {
-      transform: scale(0.9);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
-    .shop {
-      margin-top: 15px;
-      text-align: left;
-    }
-    .shop h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .item span {
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-    .item button {
-      padding: 8px 14px;
-      font-size: 0.9rem;
-      border: 2px solid var(--accent);
-      border-radius: 10px;
-      background: var(--btn-bg);
-      color: #fff;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background .2s;
-    }
-    .item button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .tasks {
-      margin-top: 20px;
-      text-align: left;
-    }
-    .tasks h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-    .task {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .task button {
-      padding: 5px 10px;
-      border: 1px solid var(--secondary);
-      border-radius: 6px;
-      background: transparent;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    #theme-toggle, #share-btn {
-      margin-top: 15px;
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      border: none;
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background .2s;
-      margin-right: 10px;
-    }
-    #share-btn { background: var(--secondary); }
-    @media (max-width: 500px) {
-      #tap-btn { width: 220px; height: 220px; line-height: 220px; font-size: 4.5rem; }
-      .container { padding: 20px; }
-      .status { flex-direction: column; gap: 8px; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    #tap-btn:active { transform: scale(0.95); }
+    .shop { margin-top: 10px; text-align: left; }
+    .shop h2 { margin-bottom: 10px; font-size: 1.4rem; }
+    .item { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .item button { padding: 6px 12px; font-size: .9rem; border: 2px solid var(--accent);
+      border-radius: 8px; background: transparent; cursor: pointer; }
+    .item button:disabled { opacity: .5; cursor: not-allowed; }
+    #theme-toggle { margin-top: 15px; font-size: .9rem; background: var(--accent);
+      color: #fff; padding: 6px 12px; border:none; border-radius:8px; cursor:pointer; }
+    @media (max-width:480px) {
+      #tap-btn { width:160px; height:160px; line-height:160px; font-size:3rem; }
+      .container { padding:20px; }
+      .status { flex-direction: column; gap:8px; }
     }
   </style>
 </head>
@@ -161,78 +54,111 @@
       <div>Balance: <strong id="bal">0</strong> 🪙</div>
       <div>Speed ×<strong id="mul">1</strong></div>
       <div>CPS: <strong id="cps">0</strong></div>
-      <div>Level: <strong id="level">1</strong></div>
-      <div>XP: <strong id="xp">0</strong>/<strong id="xpNext">100</strong></div>
     </div>
     <div id="tap-btn">👆</div>
 
     <div class="shop">
-      <h2>🛒 Shop & Features</h2>
+      <h2>🛒 Shop</h2>
       <div class="item"><span>×2 Speed</span><button id="buy-speed">Cost: <span id="cost-speed">100</span></button></div>
       <div class="item"><span>+1 Auto-Tap/sec</span><button id="buy-auto">Cost: <span id="cost-auto">500</span></button></div>
-    </div>
-
-    <div class="tasks">
-      <h2>📋 Daily Tasks</h2>
-      <div class="task"><span>Tap 100 times</span><button id="task-tap">Claim 50 🪙</button></div>
-      <div class="task"><span>Earn 500 coins</span><button id="task-earn">Claim 100 🪙</button></div>
-      <div class="task"><span>Share game</span><button id="task-share">Claim 75 🪙</button></div>
+      <div class="item"><span>💥 Critical Tap (10% double)</span><button id="buy-crit">Cost: <span id="cost-crit">300</span></button></div>
+      <div class="item"><span>🔄 Combo Multiplier (×3 for 10 taps)</span><button id="buy-combo">Cost: <span id="cost-combo">750</span></button></div>
+      <div class="item"><span>🐾 Coin Pet (+0.5/sec)</span><button id="buy-pet">Cost: <span id="cost-pet">1000</span></button></div>
+      <div class="item"><span>☕️ Coffee Boost (×1.5 for 60s)</span><button id="buy-coffee">Cost: <span id="cost-coffee">1200</span></button></div>
+      <div class="item"><span>🎉 Daily Reward Unlock</span><button id="buy-daily">Cost: <span id="cost-daily">1500</span></button></div>
+      <div class="item"><span>🌈 Skin Pack</span><button id="buy-skin">Cost: <span id="cost-skin">2000</span></button></div>
+      <div class="item"><span>📈 Offline Multiplier (×2)</span><button id="buy-offline">Cost: <span id="cost-offline">2500</span></button></div>
+      <div class="item"><span>🏛 Prestige Reset</span><button id="buy-prestige">Cost: <span id="cost-prestige">5000</span></button></div>
+      <div class="item"><span>🌟 Lucky Spin</span><button id="buy-spin">Cost: <span id="cost-spin">800</span></button></div>
     </div>
 
     <button id="theme-toggle">Toggle Dark Mode 🌗</button>
-    <button id="share-btn">Share Game 🎮</button>
   </div>
 
   <audio id="click-sfx" src="https://freesound.org/data/previews/256/256113_3263906-lq.mp3"></audio>
 
   <script>
-    const state = { bal:0, mul:1, cps:0, level:1, xp:0, xpNext:100, taps:0, earned:0, shared:false };
-    const done = { tap:false, earn:false, share:false };
+    // State
+    const state = { bal: 0, mul: 1, cps: 0 };
+    const costs = {
+      speed:100, auto:500, crit:300, combo:750, pet:1000,
+      coffee:1200, daily:1500, skin:2000, offline:2500,
+      prestige:5000, spin:800
+    };
+    const bought = { crit:0, combo:0 };
     const els = {};
-    ['bal','mul','cps','level','xp','xpNext'].forEach(id=>els[id]=document.getElementById(id));
+
+    // Init elements
+    ['bal','mul','cps'].forEach(id => els[id] = document.getElementById(id));
+    Object.keys(costs).forEach(key => els['cost-'+key] = document.getElementById('cost-'+key));
+
     function refresh() {
       els.bal.textContent = state.bal;
       els.mul.textContent = state.mul;
       els.cps.textContent = state.cps;
-      els.level.textContent = state.level;
-      els.xp.textContent = state.xp;
-      els.xpNext.textContent = state.xpNext;
-      document.getElementById('task-tap').disabled = done.tap || state.taps < 100;
-      document.getElementById('task-earn').disabled = done.earn || state.earned < 500;
-      document.getElementById('task-share').disabled = done.share;
+      Object.keys(costs).forEach(key => {
+        document.getElementById('buy-'+key).disabled = state.bal < costs[key];
+      });
     }
-    document.getElementById('tap-btn').addEventListener('pointerdown',()=>{
-      state.bal += state.mul;
-      state.taps++;
-      state.earned += state.mul;
-      state.xp += 5;
-      if(state.xp >= state.xpNext) {
-        state.xp -= state.xpNext;
-        state.level++;
-        state.xpNext = Math.floor(state.xpNext * 1.5);
-        alert(`🎉 Leveled up to ${state.level}!`);
+
+    // Purchase helper
+    function buy(key, effect) {
+      if (state.bal >= costs[key]) {
+        state.bal -= costs[key];
+        effect();
+        costs[key] *= 2;
+        els['cost-'+key].textContent = costs[key];
+        refresh();
+        alert(`👍 ${key.replace('-', ' ')} purchased!`);
       }
-      document.getElementById('click-sfx').play();
+    }
+
+    document.getElementById('buy-speed').onclick   = () => buy('speed', () => state.mul *= 2);
+    document.getElementById('buy-auto').onclick    = () => buy('auto',  () => state.cps += 1);
+    document.getElementById('buy-crit').onclick    = () => buy('crit',  () => bought.crit++);
+    document.getElementById('buy-combo').onclick   = () => buy('combo', () => bought.combo = 10);
+    document.getElementById('buy-pet').onclick     = () => buy('pet',   () => state.cps += 0.5);
+    document.getElementById('buy-coffee').onclick  = () => buy('coffee',() => {
+      state.mul *= 1.5;
+      setTimeout(() => state.mul /= 1.5, 60000);
+    });
+    document.getElementById('buy-daily').onclick   = () => buy('daily', () => alert('⏰ Come back tomorrow for reward!'));
+    document.getElementById('buy-skin').onclick    = () => buy('skin',  () => alert('🌈 New skins unlocked!'));
+    document.getElementById('buy-offline').onclick = () => buy('offline', () => state.cps *= 2);
+    document.getElementById('buy-prestige').onclick= () => buy('prestige', () => {
+      state.bal = 0; state.mul = 1; state.cps = 0;
+    });
+    document.getElementById('buy-spin').onclick    = () => buy('spin',   () => {
+      const bonus = Math.floor(Math.random() * 500);
+      state.bal += bonus;
+      alert(`🎁 You won ${bonus} coins!`);
+    });
+
+    // Tap handler
+    const btnTap = document.getElementById('tap-btn');
+    const sfx    = document.getElementById('click-sfx');
+    btnTap.addEventListener('pointerdown', () => {
+      let gain = state.mul;
+      if (Math.random() < 0.1 * bought.crit) gain *= 2;
+      if (bought.combo > 0) { gain *= 3; bought.combo--; }
+      state.bal += gain;
+      sfx.currentTime = 0; sfx.play();
       refresh();
     });
-    document.getElementById('task-tap').onclick = ()=>{
-      if(state.taps >=100 && !done.tap) { state.bal += 50; done.tap=true; alert('🏆 Task complete! +50 🪙'); refresh(); }
-    };
-    document.getElementById('task-earn').onclick = ()=>{
-      if(state.earned >=500 && !done.earn) { state.bal += 100; done.earn=true; alert('🏆 Task complete! +100 🪙'); refresh(); }
-    };
-    document.getElementById('task-share').onclick = ()=>{
-      done.share = true;
-      state.bal += 75;
-      alert('🏆 Thanks for sharing! +75 🪙');
-      refresh();
-    };
-    document.getElementById('share-btn').onclick = ()=>{
-      if(navigator.share) {
-        navigator.share({ title:'Tap & Earn', text:'Join me in this clicker game!', url:location.href });
-      } else alert('🔗 Copy link: '+location.href);
-    };
-    document.getElementById('theme-toggle').onclick = ()=> document.body.classList.toggle('dark');
+
+    // Auto-Tap every second
+    setInterval(() => {
+      if (state.cps > 0) {
+        state.bal += state.cps;
+        refresh();
+      }
+    }, 1000);
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.onclick = () => document.body.classList.toggle('dark');
+
+    // Initialize UI
     refresh();
   </script>
 </body>
