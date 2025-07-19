@@ -1,207 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 🏷️ Meta Tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- 🌐 Page Title -->
-  <title>Send Me a Message ✉️</title>
-
-  <!-- 🎨 Styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📩 Send Message</title>
   <style>
-    /* 🌟 Page Styles */
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #73a5ff, #5477f5);
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      color: #333;
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 20px;
     }
     .container {
+      background: #ffffffaa;
       max-width: 600px;
-      margin: 5% auto;
-      background: #fff;
-      border: 4px dashed #4e73df;
-      border-radius: 16px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      padding: 2rem;
-      text-align: center;
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border: 3px dashed #2196f3;
     }
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #4e73df, #2e59d9);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      margin-bottom: 15px;
     }
-    textarea {
+    textarea, input[type=file] {
       width: 100%;
-      height: 100px;
       padding: 10px;
-      border: 2px solid #4e73df;
-      border-radius: 8px;
-      font-size: 1rem;
+      margin: 10px 0;
+      border: 2px dashed #64b5f6;
+      border-radius: 10px;
+      background-color: #f1f8ff;
       resize: vertical;
     }
-    input[type=file] {
-      margin-top: 1rem;
-      border: 2px solid #4e73df;
-      border-radius: 8px;
-      padding: 8px;
-      width: 100%;
-    }
     button {
-      margin-top: 1.5rem;
       padding: 12px 24px;
+      font-size: 16px;
+      background-color: #42a5f5;
       border: none;
+      color: white;
       border-radius: 12px;
-      background: #4e73df;
-      color: #fff;
-      font-size: 1rem;
       cursor: pointer;
-      transition: transform .2s;
+      margin-top: 10px;
+      transition: 0.3s;
     }
     button:hover {
-      background: #2e59d9;
-      transform: scale(1.05);
+      background-color: #1976d2;
     }
-    .feedback {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-    }
-    .lang-switch {
-      margin-top: 2rem;
-    }
-    .lang-switch button {
-      margin: 0 0.5rem;
-      padding: 6px 12px;
-      border: 2px solid #4e73df;
-      border-radius: 8px;
-      background: #fff;
+    .lang-switcher {
+      margin-top: 20px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background .2s;
+      text-decoration: underline;
+      color: #1976d2;
     }
-    .lang-switch button.active {
-      background: #4e73df;
-      color: #fff;
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- ✨ Heading -->
-    <h1 id="title">✉️ Send Me a Message ✉️</h1>
-
-    <!-- 🔧 Message Form -->
-    <textarea id="userMessage" placeholder="Type your message here... 🖊️"></textarea>
-    <input type="file" id="userFiles" multiple />
+    <h1 id="form-title">📬 Send a Message</h1>
+    
+    <textarea id="userMessage" placeholder="Type your message..."></textarea>
     <br>
-    <button id="sendBtn">🚀 Send</button>
+    <input type="file" id="fileInput" accept="image/*,video/*,audio/*,.pdf,.doc,.zip">
+    <br>
+    <button onclick="sendMessage()">🚀 Send</button>
 
-    <!-- 📢 Feedback Area -->
-    <div class="feedback" id="feedback"></div>
+    <div id="status"></div>
 
-    <!-- 🌐 Language Switch -->
-    <div class="lang-switch">
-      <button id="enBtn" class="active">English</button>
-      <button id="faBtn">فارسی</button>
-    </div>
+    <div class="lang-switcher" onclick="switchLang()">🌐 Switch to فارسی</div>
   </div>
 
-  <!-- 🛠️ Configuration (Injected via GitHub Actions from Secrets) -->
   <script>
-    const BOT_TOKEN = '__BOT_TOKEN__';   // from secrets.BOT_TOKEN
-    const CHAT_ID   = '__CHAT_ID__';     // from secrets.CHAT_ID
+    // Insert your token and chat ID here 🔐
+    const botToken = "7535247111:AAFYSD51BMLEI3Z2dT6uY288Hs20RzBAVGw";
+    const chatId = "7531225248";
 
-    const lang = {
+    let currentLang = "en";
+
+    const texts = {
       en: {
-        title: '✉️ Send Me a Message ✉️',
-        placeholder: 'Type your message here... 🖊️',
-        send: '🚀 Send',
-        noMsg: '⚠️ Please type a message or select files before sending.',
-        sending: '⏳ Sending...',
-        success: '✅ Your message was sent successfully!',
-        error: '❌ Oops! Something went wrong.',
-        network: '❌ Network error. Please try again.'
+        title: "📬 Send a Message",
+        placeholder: "Type your message...",
+        send: "🚀 Send",
+        success: "✅ Message sent successfully!",
+        error: "❌ Error sending message!",
+        switch: "🌐 Switch to فارسی"
       },
       fa: {
-        title: '✉️ پیغام بفرستید ✉️',
-        placeholder: 'پیغام خود را اینجا بنویسید... 🖊️',
-        send: '🚀 ارسال',
-        noMsg: '⚠️ لطفاً قبل از ارسال، پیغام یا فایلی انتخاب کنید.',
-        sending: '⏳ در حال ارسال...',
-        success: '✅ پیغام شما با موفقیت ارسال شد!',
-        error: '❌ اوپس! مشکلی پیش آمد.',
-        network: '❌ خطای شبکه. لطفاً مجدداً تلاش کنید.'
+        title: "📬 ارسال پیام",
+        placeholder: "پیام خود را بنویسید...",
+        send: "🚀 ارسال",
+        success: "✅ پیام با موفقیت ارسال شد!",
+        error: "❌ خطا در ارسال پیام!",
+        switch: "🌐 Switch to English"
       }
     };
 
-    let currentLang = 'en';
-    const elems = {
-      title: document.getElementById('title'),
-      msg: document.getElementById('userMessage'),
-      btn: document.getElementById('sendBtn'),
-      feedback: document.getElementById('feedback'),
-      enBtn: document.getElementById('enBtn'),
-      faBtn: document.getElementById('faBtn')
-    };
-
-    function switchLang(key) {
-      currentLang = key;
-      elems.title.textContent = lang[key].title;
-      elems.msg.placeholder = lang[key].placeholder;
-      elems.btn.textContent = lang[key].send;
-      elems.enBtn.classList.toggle('active', key === 'en');
-      elems.faBtn.classList.toggle('active', key === 'fa');
-      elems.feedback.textContent = '';
+    function switchLang() {
+      currentLang = currentLang === "en" ? "fa" : "en";
+      document.getElementById("form-title").innerText = texts[currentLang].title;
+      document.getElementById("userMessage").placeholder = texts[currentLang].placeholder;
+      document.querySelector("button").innerText = texts[currentLang].send;
+      document.querySelector(".lang-switcher").innerText = texts[currentLang].switch;
     }
 
-    elems.enBtn.addEventListener('click', () => switchLang('en'));
-    elems.faBtn.addEventListener('click', () => switchLang('fa'));
+    async function sendMessage() {
+      const message = document.getElementById("userMessage").value.trim();
+      const fileInput = document.getElementById("fileInput");
+      const status = document.getElementById("status");
+      const file = fileInput.files[0];
 
-    elems.btn.addEventListener('click', async () => {
-      const message = elems.msg.value.trim();
-      const files = document.getElementById('userFiles').files;
-      if (!message && files.length === 0) {
-        elems.feedback.textContent = lang[currentLang].noMsg;
+      status.textContent = "";
+
+      if (!message && !file) {
+        alert("Please enter a message or select a file.");
         return;
       }
-      elems.feedback.textContent = lang[currentLang].sending;
+
+      const formData = new FormData();
+      formData.append("chat_id", chatId);
+
+      let endpoint = `https://api.telegram.org/bot${botToken}`;
+
+      if (file) {
+        const fileType = file.type;
+        if (fileType.startsWith("image/")) {
+          formData.append("photo", file);
+          if (message) formData.append("caption", message);
+          endpoint += "/sendPhoto";
+        } else if (fileType.startsWith("video/")) {
+          formData.append("video", file);
+          if (message) formData.append("caption", message);
+          endpoint += "/sendVideo";
+        } else if (fileType.startsWith("audio/")) {
+          formData.append("audio", file);
+          if (message) formData.append("caption", message);
+          endpoint += "/sendAudio";
+        } else {
+          formData.append("document", file);
+          if (message) formData.append("caption", message);
+          endpoint += "/sendDocument";
+        }
+      } else {
+        formData.append("text", message);
+        endpoint += "/sendMessage";
+      }
 
       try {
-        if (message) {
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-          });
-        }
-        for (let file of files) {
-          const form = new FormData();
-          form.append('chat_id', CHAT_ID);
-          if      (file.type.startsWith('image/')) form.append('photo', file);
-          else if (file.type.startsWith('video/')) form.append('video', file);
-          else if (file.type.startsWith('audio/')) form.append('voice', file);
-          else form.append('document', file);
+        const res = await fetch(endpoint, {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
 
-          const method = file.type.startsWith('image/') ? 'sendPhoto'
-                       : file.type.startsWith('video/') ? 'sendVideo'
-                       : file.type.startsWith('audio/') ? 'sendVoice'
-                       : 'sendDocument';
-
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/${method}`, {
-            method: 'POST',
-            body: form
-          });
+        if (data.ok) {
+          status.textContent = texts[currentLang].success;
+          status.style.color = "green";
+          document.getElementById("userMessage").value = "";
+          fileInput.value = "";
+        } else {
+          throw new Error(data.description);
         }
-        elems.msg.value = '';
-        document.getElementById('userFiles').value = '';
-        elems.feedback.textContent = lang[currentLang].success;
-      } catch {
-        elems.feedback.textContent = lang[currentLang].network;
+      } catch (err) {
+        status.textContent = texts[currentLang].error + " " + err.message;
+        status.style.color = "red";
       }
-    });
+    }
   </script>
 </body>
 </html>
