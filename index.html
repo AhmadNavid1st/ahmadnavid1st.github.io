@@ -10,90 +10,197 @@
 
   <!-- 🎨 Styles -->
   <style>
-    body { margin:0; padding:0; background:#eef2f7; font-family:'Segoe UI', Tahoma, sans-serif; }
+    /* 🌟 Page Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #73a5ff, #5477f5);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #333;
+    }
     .container {
-      max-width: 500px;
+      max-width: 600px;
       margin: 5% auto;
       background: #fff;
       border: 4px dashed #4e73df;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
       padding: 2rem;
       text-align: center;
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 1rem;
+      background: linear-gradient(90deg, #4e73df, #2e59d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     textarea {
       width: 100%;
-      height: 120px;
+      height: 100px;
       padding: 10px;
       border: 2px solid #4e73df;
       border-radius: 8px;
-      resize: none;
       font-size: 1rem;
+      resize: vertical;
+    }
+    input[type=file] {
+      margin-top: 1rem;
+      border: 2px solid #4e73df;
+      border-radius: 8px;
+      padding: 8px;
+      width: 100%;
     }
     button {
-      margin-top: 1rem;
-      padding: 10px 20px;
-      border:none;
-      border-radius:8px;
-      background:#4e73df;
-      color:#fff;
-      font-size:1rem;
-      cursor:pointer;
+      margin-top: 1.5rem;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      background: #4e73df;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform .2s;
     }
-    button:hover { background:#2e59d9; }
-    .feedback { margin-top:1rem; font-size:0.9rem; }
+    button:hover {
+      background: #2e59d9;
+      transform: scale(1.05);
+    }
+    .feedback {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    .lang-switch {
+      margin-top: 2rem;
+    }
+    .lang-switch button {
+      margin: 0 0.5rem;
+      padding: 6px 12px;
+      border: 2px solid #4e73df;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .lang-switch button.active {
+      background: #4e73df;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- ✨ Heading -->
-    <h1>✉️ Send Me a Message ✉️</h1>
+    <h1 id="title">✉️ Send Me a Message ✉️</h1>
 
     <!-- 🔧 Message Form -->
     <textarea id="userMessage" placeholder="Type your message here... 🖊️"></textarea>
+    <input type="file" id="userFiles" multiple />
     <br>
     <button id="sendBtn">🚀 Send</button>
 
     <!-- 📢 Feedback Area -->
     <div class="feedback" id="feedback"></div>
+
+    <!-- 🌐 Language Switch -->
+    <div class="lang-switch">
+      <button id="enBtn" class="active">English</button>
+      <button id="faBtn">فارسی</button>
+    </div>
   </div>
 
-  <!-- 🛠️ Configuration (Replace with your values) -->
+  <!-- 🛠️ Configuration (Injected via GitHub Actions from Secrets) -->
   <script>
-    const BOT_TOKEN = '7535247111:AAFYSD51BMLEI3Z2dT6uY288Hs20RzBAVGw';    // Replace with your bot token 🔑
-    const CHAT_ID   = '7531225248';      // Replace with your user ID 👤
+    const BOT_TOKEN = '__BOT_TOKEN__';   // from secrets.BOT_TOKEN
+    const CHAT_ID   = '__CHAT_ID__';     // from secrets.CHAT_ID
 
-    document.getElementById('sendBtn').addEventListener('click', () => {
-      const msg = document.getElementById('userMessage').value.trim();
-      const feedbackEl = document.getElementById('feedback');
+    const lang = {
+      en: {
+        title: '✉️ Send Me a Message ✉️',
+        placeholder: 'Type your message here... 🖊️',
+        send: '🚀 Send',
+        noMsg: '⚠️ Please type a message or select files before sending.',
+        sending: '⏳ Sending...',
+        success: '✅ Your message was sent successfully!',
+        error: '❌ Oops! Something went wrong.',
+        network: '❌ Network error. Please try again.'
+      },
+      fa: {
+        title: '✉️ پیغام بفرستید ✉️',
+        placeholder: 'پیغام خود را اینجا بنویسید... 🖊️',
+        send: '🚀 ارسال',
+        noMsg: '⚠️ لطفاً قبل از ارسال، پیغام یا فایلی انتخاب کنید.',
+        sending: '⏳ در حال ارسال...',
+        success: '✅ پیغام شما با موفقیت ارسال شد!',
+        error: '❌ اوپس! مشکلی پیش آمد.',
+        network: '❌ خطای شبکه. لطفاً مجدداً تلاش کنید.'
+      }
+    };
 
-      if (!msg) {
-        feedbackEl.textContent = '⚠️ Please type a message before sending.';
+    let currentLang = 'en';
+    const elems = {
+      title: document.getElementById('title'),
+      msg: document.getElementById('userMessage'),
+      btn: document.getElementById('sendBtn'),
+      feedback: document.getElementById('feedback'),
+      enBtn: document.getElementById('enBtn'),
+      faBtn: document.getElementById('faBtn')
+    };
+
+    function switchLang(key) {
+      currentLang = key;
+      elems.title.textContent = lang[key].title;
+      elems.msg.placeholder = lang[key].placeholder;
+      elems.btn.textContent = lang[key].send;
+      elems.enBtn.classList.toggle('active', key === 'en');
+      elems.faBtn.classList.toggle('active', key === 'fa');
+      elems.feedback.textContent = '';
+    }
+
+    elems.enBtn.addEventListener('click', () => switchLang('en'));
+    elems.faBtn.addEventListener('click', () => switchLang('fa'));
+
+    elems.btn.addEventListener('click', async () => {
+      const message = elems.msg.value.trim();
+      const files = document.getElementById('userFiles').files;
+      if (!message && files.length === 0) {
+        elems.feedback.textContent = lang[currentLang].noMsg;
         return;
       }
+      elems.feedback.textContent = lang[currentLang].sending;
 
-      feedbackEl.textContent = '⏳ Sending...';
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          feedbackEl.textContent = '✅ Your message was sent successfully!';
-          document.getElementById('userMessage').value = '';
-        } else {
-          feedbackEl.textContent = '❌ Oops! Something went wrong.';
+      try {
+        if (message) {
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+          });
         }
-      })
-      .catch(() => {
-        feedbackEl.textContent = '❌ Network error. Please try again.';
-      });
+        for (let file of files) {
+          const form = new FormData();
+          form.append('chat_id', CHAT_ID);
+          if      (file.type.startsWith('image/')) form.append('photo', file);
+          else if (file.type.startsWith('video/')) form.append('video', file);
+          else if (file.type.startsWith('audio/')) form.append('voice', file);
+          else form.append('document', file);
+
+          const method = file.type.startsWith('image/') ? 'sendPhoto'
+                       : file.type.startsWith('video/') ? 'sendVideo'
+                       : file.type.startsWith('audio/') ? 'sendVoice'
+                       : 'sendDocument';
+
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/${method}`, {
+            method: 'POST',
+            body: form
+          });
+        }
+        elems.msg.value = '';
+        document.getElementById('userFiles').value = '';
+        elems.feedback.textContent = lang[currentLang].success;
+      } catch {
+        elems.feedback.textContent = lang[currentLang].network;
+      }
     });
   </script>
 </body>
