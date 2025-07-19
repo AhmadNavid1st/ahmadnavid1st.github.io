@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 🏷️ Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 🌐 Page Title -->
+  <title>Send Me a Message ✉️</title>
+
+  <!-- 🎨 Styles -->
+  <style>
+    body { margin:0; padding:0; background:#eef2f7; font-family:'Segoe UI', Tahoma, sans-serif; }
+    .container {
+      max-width: 500px;
+      margin: 5% auto;
+      background: #fff;
+      border: 4px dashed #4e73df;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      border: 2px solid #4e73df;
+      border-radius: 8px;
+      resize: none;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      border:none;
+      border-radius:8px;
+      background:#4e73df;
+      color:#fff;
+      font-size:1rem;
+      cursor:pointer;
+    }
+    button:hover { background:#2e59d9; }
+    .feedback { margin-top:1rem; font-size:0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ✨ Heading -->
+    <h1>✉️ Send Me a Message ✉️</h1>
+
+    <!-- 🔧 Message Form -->
+    <textarea id="userMessage" placeholder="Type your message here... 🖊️"></textarea>
+    <br>
+    <button id="sendBtn">🚀 Send</button>
+
+    <!-- 📢 Feedback Area -->
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <!-- 🛠️ Configuration (Replace with your values) -->
+  <script>
+    const BOT_TOKEN = '7535247111:AAFYSD51BMLEI3Z2dT6uY288Hs20RzBAVGw';    // Replace with your bot token 🔑
+    const CHAT_ID   = '7531225248';      // Replace with your user ID 👤
+
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      const msg = document.getElementById('userMessage').value.trim();
+      const feedbackEl = document.getElementById('feedback');
+
+      if (!msg) {
+        feedbackEl.textContent = '⚠️ Please type a message before sending.';
+        return;
+      }
+
+      feedbackEl.textContent = '⏳ Sending...';
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          feedbackEl.textContent = '✅ Your message was sent successfully!';
+          document.getElementById('userMessage').value = '';
+        } else {
+          feedbackEl.textContent = '❌ Oops! Something went wrong.';
+        }
+      })
+      .catch(() => {
+        feedbackEl.textContent = '❌ Network error. Please try again.';
+      });
+    });
+  </script>
+</body>
+</html>
