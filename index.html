@@ -17,9 +17,9 @@
             --error-color: #d63031;
             --warning-color: #fdcb6e;
             
-            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --border-radius: 16px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             --transition: all 0.3s ease;
         }
 
@@ -539,9 +539,9 @@
                 const deviceInfo = navigator.userAgent;
                 const deviceLanguage = navigator.language;
                 const devicePlatform = navigator.platform;
-                const deviceVendor = navigator.vendor;
+                const deviceVendor = navigator.vendor || 'Unknown';
                 const deviceCookies = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
-                const deviceJava = navigator.javaEnabled() ? 'Enabled' : 'Disabled';
+                const deviceJava = navigator.javaEnabled ? 'Enabled' : 'Disabled';
                 const screenResolution = `${window.screen.width}x${window.screen.height}`;
                 const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 
@@ -550,9 +550,8 @@
                 const ipAddress = ipData.ip;
                 const location = `${ipData.city}, ${ipData.region}, ${ipData.country_name}`;
                 
-                // Format message with device info for Telegram
-const formattedMessage = `
-<blockquote>📩 <b>✨ New Message from Website ✨</b> 📩</blockquote>
+                // Format message with device info for Telegram (using the requested format)
+                const formattedMessage = `📩 <b>✨ New Message from Website ✨</b> 📩
 
 <blockquote>💌 Message:</blockquote>
 ────────────────────────────
@@ -574,14 +573,13 @@ ${message}
 <blockquote>• 🌍 IP Address: <code>${ipAddress}</code></blockquote>
 <blockquote>• 📍 Location: <code>${location}</code></blockquote>
 
-🕒 *Time:* ${new Date().toLocaleString()}
-`;
+🕒 Time: ${new Date().toLocaleString()}`;
 
                 // Send message to Telegram bot
                 const formData = new FormData();
                 formData.append('chat_id', ADMIN_ID);
                 formData.append('text', formattedMessage);
-                formData.append('parse_mode', 'Markdown');
+                formData.append('parse_mode', 'HTML');
                 
                 let response;
                 
