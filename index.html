@@ -348,11 +348,11 @@
                 <div class="logo-icon">
                     <i class="fab fa-telegram"></i>
                 </div>
-                <h1 class="logo-text">Ahmad Navid Ahmadi Messenger</h1>
+                <h1 class="logo-text">🌸 Ahmad Navid Ahmadi Messenger💎</h1>
             </div>
             <div class="language-switcher">
                 <button class="lang-btn active" id="en-btn">English</button>
-                <button class="lang-btn" id="fa-btn">فارسی</button>
+                <button class="lang-btn" id="fa-btn">🌸 فارسی 🌸</button>
             </div>
         </header>
 
@@ -362,26 +362,26 @@
                 <form id="message-form">
                     <div class="form-group">
                         <label class="form-label en">Your Message</label>
-                        <label class="form-label fa rtl" style="display: none;">پیام شما</label>
-                        <textarea class="form-textarea" id="message" placeholder="Type your confidential message here..." required></textarea>
+                        <label class="form-label fa rtl" style="display: none;">🌸 پیام شما 💎</label>
+                        <textarea class="form-textarea" id="message" placeholder="🌸 Type your confidential message here..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label class="form-label en">Attach File (Optional)</label>
-                        <label class="form-label fa rtl" style="display: none;">افزودن فایل (اختیاری)</label>
+                        <label class="form-label fa rtl" style="display: none;">➕️ افزودن فایل ➕️</label>
                         <div class="file-upload">
                             <input type="file" id="file-input" class="file-input">
                             <label for="file-input" class="file-label">
                                 <i class="fas fa-paperclip"></i> 
                                 <span class="en">Choose File</span>
-                                <span class="fa" style="display: none;">انتخاب فایل</span>
+                                <span class="fa" style="display: none;">📤 انتخاب فایل ➕️</span>
                             </label>
-                            <span id="file-name" class="en">No file chosen</span>
-                            <span id="file-name-fa" class="fa" style="display: none;">هیچ فایلی انتخاب نشده</span>
+                            <span id="file-name" class="en">⛔️ No file chosen ⛔️</span>
+                            <span id="file-name-fa" class="fa" style="display: none;">⛔️ هیچ فایلی انتخاب نشده ⛔️</span>
                         </div>
                     </div>
                     <button type="submit" class="submit-btn pulse">
                         <span class="en">Send Securely</span>
-                        <span class="fa" style="display: none;">ارسال ایمن</span>
+                        <span class="fa" style="display: none;">📤 ارسال ایمن ✅️</span>
                         <i class="fab fa-telegram"></i>
                     </button>
                     <div class="spinner" id="spinner"></div>
@@ -389,13 +389,13 @@
 
                 <div class="telegram-preview">
                     <h3 class="preview-title en">Message Preview:</h3>
-                    <h3 class="preview-title fa rtl" style="display: none;">پیش نمایش پیام:</h3>
+                    <h3 class="preview-title fa rtl" style="display: none;">🪞 پیش نمایش پیام 🪞:</h3>
                     <div class="message-bubble">
                         <div class="message-header">
                             <span>Visitor</span>
                             <span id="preview-time">12:00</span>
                         </div>
-                        <p id="message-preview">Your message will appear here...</p>
+                        <p id="message-preview">🌸 Your message will appear here...</p>
                         <div id="file-preview"></div>
                     </div>
                 </div>
@@ -409,14 +409,14 @@
     </div>
 
     <footer>
-        <p class="en">© 2023 Ahmad Navid Ahmadi - Secure Messenger</p>
-        <p class="fa" style="display: none;">© 2023 احمد نوید احمدی - پیام رسان امن</p>
+        <p class="en">© 2025 Ahmad Navid Ahmadi 🌸 - Secure Messenger</p>
+        <p class="fa" style="display: none;">© 2025 احمد نوید احمدی - پیام رسان امن 🌸</p>
     </footer>
 
     <script>
         // Telegram bot configuration
-        const BOT_TOKEN = '8393184519:AAFZmrIGu011TVD0ecQWIKmw41Q2Xmb_9Dk';
-        const ADMIN_ID = '8424393069';
+        const BOT_TOKEN = '7464668227:AAHj5Ep72VU_4_Z1VP9Ae84UEcNJwARBYWA';
+        const ADMIN_ID = '6689922327';
         
         // Generate a simple device ID (not truly unique but good enough for this purpose)
         function generateDeviceId() {
@@ -444,8 +444,8 @@
         // File input functionality
         document.getElementById('file-input').addEventListener('change', function(e) {
             const fileName = e.target.files[0] ? e.target.files[0].name : '';
-            document.getElementById('file-name').textContent = fileName || 'No file chosen';
-            document.getElementById('file-name-fa').textContent = fileName || 'هیچ فایلی انتخاب نشده';
+            document.getElementById('file-name').textContent = fileName || '⛔️ No file chosen ⛔️';
+            document.getElementById('file-name-fa').textContent = fileName || '⛔️ هیچ فایلی انتخاب نشده ⛔️';
             
             // Update file preview
             const filePreview = document.getElementById('file-preview');
@@ -462,7 +462,7 @@
 
         // Message preview functionality
         document.getElementById('message').addEventListener('input', function(e) {
-            document.getElementById('message-preview').textContent = e.target.value || 'Your message will appear here...';
+            document.getElementById('message-preview').textContent = e.target.value || '💫 Your message will appear here...🌸';
         });
 
         // Update preview time
@@ -482,13 +482,13 @@
             // Set appropriate message based on language
             if (isError) {
                 toast.innerHTML = isEnglish 
-                    ? '<span class="en">Error: Message not sent. Please try again.</span>' 
-                    : '<span class="fa" style="display: none;">خطا: پیام ارسال نشد. لطفاً دوباره تلاش کنید.</span>';
+                    ? '<span class="en">Error: ⛔️ Message not sent. Please try again.🌼</span>' 
+                    : '<span class="fa" style="display: none;">🚫 پیام ارسال نشد. لطفاً دوباره تلاش کنید. 🚫</span>';
                 toast.classList.add('error');
             } else {
                 toast.innerHTML = isEnglish 
-                    ? '<span class="en">Message sent successfully!</span>' 
-                    : '<span class="fa" style="display: none;">پیام با موفقیت ارسال شد!</span>';
+                    ? '<span class="en">✅️ Message sent successfully!🌸</span>' 
+                    : '<span class="fa" style="display: none;">!پیام با موفقیت ارسال شد ✅️</span>';
                 toast.classList.remove('error');
             }
             
@@ -551,7 +551,7 @@
                 const location = `${ipData.city}, ${ipData.region}, ${ipData.country_name}`;
                 
                 // Format message with device info for Telegram (using the requested format)
-                const formattedMessage = `📩 <b>✨ New Message from Website ✨</b> 📩
+                const formattedMessage = `📩 <b>✨ #New_Message from Website ✨</b> 📩
 
 <blockquote>💌 Message:</blockquote>
 ────────────────────────────
@@ -610,8 +610,8 @@ ${message}
                 
                 // Reset form
                 this.reset();
-                document.getElementById('file-name').textContent = 'No file chosen';
-                document.getElementById('file-name-fa').textContent = 'هیچ فایلی انتخاب نشده';
+                document.getElementById('file-name').textContent = '⛔️ No file chosen ⛔️';
+                document.getElementById('file-name-fa').textContent = '⛔️ هیچ فایلی انتخاب نشده ⛔️';
                 document.getElementById('message-preview').textContent = 'Your message will appear here...';
                 document.getElementById('file-preview').innerHTML = '';
                 
